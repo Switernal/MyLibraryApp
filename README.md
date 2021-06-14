@@ -12,11 +12,12 @@
 
 ## 下载构建版本
 
+[一千零一夜 | MyLibrary - 下载](https://mylibrary.switernal.com/download.html)
+
 暂时仅支持Android端下载安装，iOS后续将会通过Testflight发布测试版
 
 项目进一步完善后，将会登陆App Store及各大Android商店
 
-[一千零一夜 | MyLibrary - 下载](https://mylibrary.switernal.com/download.html)
 
 ## 更新记录
 
