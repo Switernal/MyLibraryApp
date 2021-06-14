@@ -29,3 +29,12 @@ ISBN查询接口私有Key：lib/MyBook/Function/SearchBookByISBN_Bamboo.dart
 App端使用 Flutter 1.22.6（本仓库）
 
 Server端使用 Springboot（[codpluto/mylibrary](https://github.com/codpluto/mylibrary)）
+
+## Contributors
+
+感谢以下参与本项目的测试人员提供的建议和反馈
+
+- GJ
+- 江湖骗子
+- 和宋
+
