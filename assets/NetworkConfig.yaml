@@ -1,0 +1,79 @@
+description: This is a configure file for network requests, includes sections below
+
+server:
+  url:
+    - "http://localhost:2333"
+
+  port:
+    database_port: 3306
+    server_port: 2333
+
+routes:
+  # User的所有路由
+  User:
+    register: "/user/register"
+    login: "/user/login"
+    update: "/user/changeUserInfo"
+    getUserByID: "/user/getUserById"
+
+
+  searchBookByISBN: "/book/getBookData"
+
+  # MyBooks的所有路由
+  MyBook:
+    Query:  # 查询
+      getAllBooks: "/book/getAllBook"               # 查询全部图书
+      searchBook: "/book/searchBook"                # 根据ISBN查询但本图书
+      searchBookByName: "/book/searchBookLike"      # 按书名找书
+      getShelfs: "/shelf/getShelf"                  # 查询所有书柜
+      getBookFromShelf: "/shelf/getBookInShelf"     # 查询单个书柜里所有图书
+      getBookCountInShelf: "/shelf/getAllNumber"    # 查询每个书柜里图书数量
+      getPressCount: "/book/countPress"             # 查询出版社数量
+      getAuthorCount: "/book/countAuthor"           # 查询作者数量
+
+    Add:    # 新增
+      addBook: "/book/addBook"                      # 新增图书
+      addShelf: "/shelf/addShelf"                   # 新增书柜
+
+    Update: # 修改
+      updateBook: "/book/updateBook"                # 修改图书
+      updataShelf: "/shelf/updateShelfName"         # 修改书柜名
+
+    Delete: # 删除
+      deleteBook: "/book/deleteBook"                # 删除图书
+      deleteShelf: "/shelf/deleteShelf"             # 删除书柜
+
+
+
+  # Shop的所有路由
+  Shop:
+    Query:  # 查询
+      searchGoodByID: "/goods/searchGood"                  # 通过商品ID查找商品
+      searchGoodByName: "/goods/searchGoodsLike"           # 通过商品名查找商品
+      searchOrderByID: "/orderList/searchOrderById"        # 通过订单ID查询订单
+      searchOrderByGoodID: "/orderList/searchOrderByGood"  # 根据商品ID查找订单信息
+
+      getSellerGoods: "/goods/getPublishGoods"             # 获取卖出的所有商品
+      getSellerOrders: "/orderList/searchPublishOrder"     # 获取卖出的商品订单
+      getBuyerOrders: "/orderList/searchUserList"          # 获取购买的所有订单
+
+      getRandomGoods: "/goods/loadGoods"                   # 随机加载商店中20个商品
+
+    Add:    # 新增
+      addShopBook: "/goods/addGood"                 # 发布新商品
+      createOrder: "/orderList/addOrderList"        # 创建新订单
+
+
+    Update: # 修改
+      changeGoods: "/goods/changeGoods"             # 修改商品价格
+      changeOrderState: "/orderList/changeState"    # 更新订单状态
+      setExpress: "/orderList/setExpress"           # 修改快递单号
+
+    Delete: # 删除
+      cancelOrder: "/orderList/cancelList"          # 取消订单
+      deleteGoods: "/goods/deleteGoods"             # 删除未售出的商品
+
+
+
+
+
