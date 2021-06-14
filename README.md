@@ -1,10 +1,26 @@
 # 一千零一夜 | MyLibrary
 
+## 项目官网
+
+[一千零一夜 | MyLibrary - 你的个人图书馆](https://mylibrary.switernal.com/)
+
 ## 版本
 
 外部版本：0.0.4 Build 10
 
 内部版本：0.1 (1A410)
+
+## 下载构建版本
+
+暂时仅支持Android端下载安装，iOS后续将会通过Testflight发布测试版
+
+项目进一步完善后，将会登陆App Store及各大Android商店
+
+[一千零一夜 | MyLibrary - 下载](https://mylibrary.switernal.com/download.html)
+
+## 更新记录
+
+[一千零一夜 | MyLibrary - 更新记录](https://mylibrary.switernal.com/update.html)
 
 ## 仓库说明
 
@@ -29,6 +45,8 @@ ISBN查询接口私有Key：lib/MyBook/Function/SearchBookByISBN_Bamboo.dart
 App端使用 Flutter 1.22.6（本仓库）
 
 Server端使用 Springboot（[codpluto/mylibrary](https://github.com/codpluto/mylibrary)）
+
+了解更多信息请访问：[一千零一夜 | MyLibrary - 关于](https://mylibrary.switernal.com/about.html)
 
 ## Contributors
 
