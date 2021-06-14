@@ -41,8 +41,21 @@ class SearchMyBookPageState extends State<SearchMyBookPage> {
   Future<void> _searchBooks() async {
     // 初始化网络请求对象
     await request.init();
+    // 拆分字符串,每个字符间都加上 %, 数据库可以进行模糊搜索
+    List<String> chars = searchTextController.text.characters.toList();
+    String sendText = "";
+    chars.forEach((char) {
+      sendText += char + "%";
+    });
     // 查询书籍
-    books = await request.getBooksByName(bookName: widget.searchText);
+    books = await request.getBooksByName(bookName: sendText);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // 设置搜索框文字
+    searchTextController.text = widget.searchText;
   }
 
   @override
@@ -54,8 +67,6 @@ class SearchMyBookPageState extends State<SearchMyBookPage> {
 
   @override
   Widget build(BuildContext context) {
-
-
 
     // TODO: implement build
     return Scaffold(
@@ -76,7 +87,7 @@ class SearchMyBookPageState extends State<SearchMyBookPage> {
             searchAction: (inputText) {
               Utils.showToast("查找中...", context, mode: ToastMode.Loading);
               setState(() {
-                widget.searchText = inputText;
+                searchTextController.text = inputText;
               });
             },
             onSuffixTap: () {

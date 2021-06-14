@@ -30,7 +30,7 @@ class MyBookModel {
   /// 构造函数
   MyBookModel ({
     //this.coverURL = "https://img3.doubanio.com/f/shire/5522dd1f5b742d1e1394a17f44d590646b63871d/pics/book-default-lpic.gif",
-    this.coverURL = "https://www.hualigs.cn/image/60bcfe294addc.jpg",
+    this.coverURL = "https://i0.hdslb.com/bfs/album/5522dd1f5b742d1e1394a17f44d590646b63871d.gif",
 
     this.bookName = "",
     this.ISBN = "",

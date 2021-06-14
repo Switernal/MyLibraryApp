@@ -411,27 +411,35 @@ class MainDrawerState extends State<MainDrawer> {
                 ),
 
                 ListTile(
-                  title: Text('功能'),
+                  title: Text('简介'),
                   subtitle: Text('个人图书管理与二手书交易',maxLines: 2,overflow: TextOverflow.ellipsis,),
                   leading: Icon(Icons.assistant_photo_sharp, color: Colors.purple, size: 30,),// CircleAvatar(child: Text("1")),
-                  onTap: (){ showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      // return object of type Dialog
-                      return AlertDialog(
-                        title: new Text('App 功能'),
-                        content: new Text("个人图书管理和二手书交易平台, 轻松管理您的私人书藏"),
-                        actions: <Widget>[
-                          new FlatButton(
-                            child: new Text("好"),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );},
+                  onTap: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder:
+                        (context) => WebViewPage(title: "简介", url: webURL + "/about.html")
+                    ));
+                    /*
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        // return object of type Dialog
+                        return AlertDialog(
+                          title: new Text('App 功能'),
+                          content: new Text("个人图书管理和二手书交易平台, 轻松管理您的私人书藏"),
+                          actions: <Widget>[
+                            new FlatButton(
+                              child: new Text("好"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+
+                     */
+                  },
                 ),
 
                 ListTile(
@@ -464,6 +472,37 @@ class MainDrawerState extends State<MainDrawer> {
                   );
                   */
                   },
+                ),
+
+                ListTile(
+                  title: Text('致谢'),
+                  subtitle: Text('感谢所有的贡献者',maxLines: 2,overflow: TextOverflow.ellipsis,),
+                  leading: Icon(Icons.people, color: Colors.blue, size: 30,),// CircleAvatar(child: Text("1")),
+                  onTap: (){showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      // return object of type Dialog
+                      return AlertDialog(
+                        title: Text('贡献人员名单'),
+                        content: Text(
+                                "江湖骗子\n" +
+                                "GJ\n" +
+                                "叉叉\n" +
+                                "和宋\n" +
+                                "sbw\n" +
+                                "三三\n"
+                        ),
+                        actions: <Widget>[
+                          new FlatButton(
+                            child: new Text("好"),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );;},
                 ),
 
                 ListTile(

@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.0.4+9
+version: 0.0.4+10
 
 environment:
   sdk: ">=2.10.1 <3.0.0"
@@ -27,10 +27,10 @@ dependencies:
   path_provider:                          # 获取路径
   ai_barcode:                             # 自定义扫码界面
   flutter_barcode_scanner:                # 条码扫描
-  # barcode_scan: ^3.0.1                    # 新条码扫描(有问题,不可用)
+# barcode_scan: ^3.0.1                    # 新条码扫描(有问题,不可用)
   flutter_launcher_icons:                 # 设置启动图标
-  # flutter_search_bar:                     # 不太能用的搜索栏(未使用)
-  # suggestion_search_bar:                  # 带提示的搜索栏(未使用)
+# flutter_search_bar:                     # 不太能用的搜索栏(未使用)
+# suggestion_search_bar:                  # 带提示的搜索栏(未使用)
   anim_search_bar:                        # 目前在用的搜索栏
   tform:                                  # 表单
   flutter_picker:                         # 选择器
@@ -39,15 +39,15 @@ dependencies:
   fluttertoast:                           # 小型提示通知
   date_format:                            # 日期格式
   flutter_slidable:                       # List侧滑组件
-  # shake_animation_widget:                 # 抖动效果
+# shake_animation_widget:                 # 抖动效果
   image_picker:                           # 相册
   crypto:                                 # 加密算法
   shared_preferences:                     # 轻量数据持久化
   url_launcher:                           # 打开外部链接
   fl_chart:                               # 图表
   flutter_staggered_grid_view:            # 更丰富的GridView
-  # cached_network_image:                   # 网络图片缓存(无法清除缓存,故不使用)
-  # flutter_screenutil:                     # 屏幕适配方案, 适配不同尺寸屏幕的设计工具
+# cached_network_image:                   # 网络图片缓存(无法清除缓存,故不使用)
+# flutter_screenutil:                     # 屏幕适配方案, 适配不同尺寸屏幕的设计工具
   dio:                                    # 网络请求
   blur:                                   # 高斯模糊组件
   yaml:                                   # 解析yaml文件
@@ -56,14 +56,14 @@ dependencies:
   loading_indicator_view:                 # 加载动画
   extended_image: ^3.0.0-non-null-safety  # 图片拓展(丰富的拓展操作/图片缓存)
   intro_views_flutter:                    # 引导页
-  # flutter_intro:                          # 引导操作
+# flutter_intro:                          # 引导操作
   flash:                                  # 显示snackbar
   flutter_native_image:                   # 处理图片(压缩)
   image_cropper:                          # 剪裁图片
   webview_flutter:                        # 网页Webview
   local_auth:                             # 生物识别
   rflutter_alert:                         # 提示框
-  pin_code_fields:                        # 验证码输入框
+# pin_code_fields:                        # 验证码输入框
 
 
 

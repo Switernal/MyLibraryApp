@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_library/EnterPage.dart';
 import 'package:my_library/Functions/Network/Network.dart';
@@ -28,8 +29,9 @@ List mainTabs = ["在柜书籍", "借出书籍"];
 
 // Shared_Preferences初始化器
 Future<void> Shared_Preferences_Initialize() async {
-  await LocalStorageUtils.initLocalStorage().then((value) => value ? print("Shared_preferences 初始化成功") : print("Shared_Preferences 初始化失败"));
-  await LocalStorageUtils.getInitializationString();
+  bool isSuccessInit = await LocalStorageUtils.initLocalStorage();
+  print(isSuccessInit ? "Shared_preferences 初始化成功" : "Shared_Preferences 初始化失败");
+  if (kDebugMode) await LocalStorageUtils.getInitializationString();
 }
 
 /// 程序初始化器

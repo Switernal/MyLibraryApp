@@ -171,7 +171,7 @@ class MyLibraryHomePageState extends State<MyLibraryHomePage> with TickerProvide
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Center(
-              child: Text("好像一本书也有...", style: TextStyle(fontSize: 20),),
+              child: Text("好像一本书也没有...", style: TextStyle(fontSize: 20),),
             ),
             Padding(padding: EdgeInsets.all(10)),
             Center(
