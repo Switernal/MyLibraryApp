@@ -17,7 +17,7 @@ import 'package:my_library/Shop/View/Order/PasswordDialog.dart';
 import 'package:tform/tform.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:rflutter_alert/rflutter_alert.dart' as rflutter;
-import 'package:pin_code_fields/pin_code_fields.dart' as PinCode;
+// import 'package:pin_code_fields/pin_code_fields.dart' as PinCode;
 
 // Function
 import 'package:my_library/Functions/Utils/LocalStorageUtils.dart';

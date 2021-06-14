@@ -158,9 +158,10 @@ class MyBookEditReadProgressPageState extends State<MyBookEditReadProgressPage> 
 
             // 监听输入
             onChanged: (text) {
-              if (int.parse(textController.text) > widget.book.totalPages || int.parse(textController.text) < 0) {
+              int inputProgress = int.parse(textController.text);
+              if (widget.book.totalPages > 0 && (inputProgress > widget.book.totalPages || inputProgress < 0)) {
                 setState(() {
-                  errorText = "全书共${widget.book.totalPages}页，只能输入0~${widget.book.totalPages}";
+                  errorText = "全书共${widget.book.totalPages}页，只能输入0~${widget.book.totalPages}之间的整数";
                 });
               } else {
                 setState(() {

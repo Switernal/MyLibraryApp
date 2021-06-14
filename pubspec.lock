@@ -464,13 +464,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.1.0"
-  pin_code_fields:
-    dependency: "direct main"
-    description:
-      name: pin_code_fields
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "6.1.0"
   platform:
     dependency: transitive
     description:

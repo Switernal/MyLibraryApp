@@ -85,7 +85,7 @@ class SearchBookByISBN_Tencent {
 
 
     return ShopBookModel(
-      coverURL: bookData['img'] ?? "https://www.hualigs.cn/image/60bcfe294addc.jpg",
+      coverURL: bookData['img'] ?? "https://i0.hdslb.com/bfs/album/5522dd1f5b742d1e1394a17f44d590646b63871d.gif",
       bookName: bookData['title'] ?? "",
       author: bookData['author'] ?? "",
       price_origin: double.tryParse(bookData['price']) ?? 0.0,
@@ -118,7 +118,7 @@ class SearchBookByISBN_Tencent {
     String defaultShelfName = await LocalStorageUtils.getDefaultShelf();
 
     return MyBookModel(
-      coverURL: bookData['img'] ?? "https://www.hualigs.cn/image/60bcfe294addc.jpg",
+      coverURL: bookData['img'] ?? "https://i0.hdslb.com/bfs/album/5522dd1f5b742d1e1394a17f44d590646b63871d.gif",
       bookName: bookData['title'] ?? "",
       ISBN: bookData['isbn'] ?? "",
 

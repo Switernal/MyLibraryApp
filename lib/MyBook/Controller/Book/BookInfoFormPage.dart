@@ -496,7 +496,7 @@ class BookInfoFormPageState extends State<BookInfoFormPage> {
         require: false,
         widgetBuilder: (context, row) {
           /// 如果没有封面图
-          if (widget.book.coverURL == "https://www.hualigs.cn/image/60bcfe294addc.jpg") {
+          if (widget.book.coverURL == "https://i0.hdslb.com/bfs/album/5522dd1f5b742d1e1394a17f44d590646b63871d.gif") {//"https://www.hualigs.cn/image/60bcfe294addc.jpg") {
             return Container(
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
               child: Row(
@@ -538,7 +538,7 @@ class BookInfoFormPageState extends State<BookInfoFormPage> {
                     color: Colors.red,
                     onPressed: (){
                       setState(() {
-                        widget.book.coverURL = "https://www.hualigs.cn/image/60bcfe294addc.jpg";
+                        widget.book.coverURL = "https://i0.hdslb.com/bfs/album/5522dd1f5b742d1e1394a17f44d590646b63871d.gif";//"https://www.hualigs.cn/image/60bcfe294addc.jpg";
                       });
                     },
                   ),

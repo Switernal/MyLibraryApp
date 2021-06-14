@@ -25,11 +25,9 @@ class LocalStorageUtils {
     //print("vsersion ${version}");
     prefs.setString("UpdateDate", Utils.UpdateDate);
 
-    // 设置首次登陆
-    if (!prefs.containsKey("isFirstLaunch")) {
-      prefs.setBool("isFirstLaunch", false);
-    } else {
-
+    // 设置App首次启动时间
+    if (!prefs.containsKey("firstLaunchTime")) {
+      prefs.setString("firstLaunchTime", DateTime.now().toString());
     }
 
     // 设置书柜
@@ -59,9 +57,19 @@ class LocalStorageUtils {
 
     prefs.reload();
 
+    if (!prefs.containsKey("firstLaunchTime")) {
+      return;
+    }
+
     print("版本: " + prefs.getString("Version"));
     print("更新日期: " + prefs.getString("UpdateDate"));
     return;
+  }
+
+  // 是否首次启动App
+  static Future<bool> isFirstLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey("firstLaunchTime");
   }
 
   // 用户登录
