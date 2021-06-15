@@ -10,10 +10,10 @@ import 'Functions/Utils/Utils.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 // Packages
-import 'package:url_launcher/url_launcher.dart';
+
 
 // Models
-import 'MyBook/Model/MyBookModel.dart';
+
 
 // Functions
 import 'package:my_library/Functions/Utils/LocalStorageUtils.dart';
@@ -23,52 +23,6 @@ import 'package:my_library/User/Function/UserRequest.dart';
 import 'MyBook/Function/MyBookRequest.dart';
 import 'package:my_library/Shop/Function/ShopRequest.dart';
 
-
-TabController _mainTabController;
-List mainTabs = ["在柜书籍", "借出书籍"];
-
-// Shared_Preferences初始化器
-Future<void> Shared_Preferences_Initialize() async {
-  bool isSuccessInit = await LocalStorageUtils.initLocalStorage();
-  print(isSuccessInit ? "Shared_preferences 初始化成功" : "Shared_Preferences 初始化失败");
-  if (kDebugMode) await LocalStorageUtils.getInitializationString();
-}
-
-/// 程序初始化器
-Future<void> App_Initializator() async {
-
-  print("当前时间戳: " + (DateTime.now().millisecondsSinceEpoch).toString());
-
-  /// 1. 初始化Shared_Preferences
-  await Shared_Preferences_Initialize();
-
-  /// 2. 所有request的初始化都在这里进行, 这样进入App可以直接用
-  /// (1) Network 初始化
-  Network net = Network();
-  bool isNetworkInitSucceed = await net.init();
-  print("Network初始化: $isNetworkInitSucceed");
-  print("Network的servers: ${net.servers}");
-
-  /// (2) UserModel 初始化
-  UserRequest userRequest = UserRequest();
-  bool isUserInitSucceed = await userRequest.init();
-  print("UserRequest初始化: $isUserInitSucceed");
-  print("UserRequest的URL: " + UserRequest.url);
-
-  /// (3) MyBookRequest 初始化
-  MyBookRequest myBookRequest = MyBookRequest();
-  bool isMyBookInitSucceed = await myBookRequest.init();
-  print("MyBookRequest初始化: $isMyBookInitSucceed");
-  print("MyBookRequest的URL: " + MyBookRequest.url);
-
-  /// (4) ShopRequest 初始化
-  ShopRequest shopRequest = ShopRequest();
-  bool isShopInitSucceed = await shopRequest.init();
-  print("ShopRequest初始化: $isShopInitSucceed");
-  print("ShopRequest的URL: " + ShopRequest.url);
-
-  print("UserID = ${await LocalStorageUtils.getUserID_Local()}");
-}
 
 // TODO: 主程序入口
 void main() async {
@@ -92,6 +46,58 @@ void main() async {
 
   var reg = RegExp('[0-9]+(\\.[0-9]+)?', multiLine: true);
   print(Utils.dateTimeToString(DateTime.now()));
+}
+
+// Shared_Preferences初始化器
+Future<void> Shared_Preferences_Initialize() async {
+  bool isSuccessInit = await LocalStorageUtils.initLocalStorage();
+  print(isSuccessInit ? "Shared_preferences 初始化成功" : "Shared_Preferences 初始化失败");
+  if (kDebugMode) await LocalStorageUtils.getInitializationString();
+}
+
+
+
+/// 程序初始化器
+Future<void> App_Initializator() async {
+
+  print("当前时间戳: " + (DateTime.now().millisecondsSinceEpoch).toString());
+
+  /// 1. 初始化Shared_Preferences
+  await Shared_Preferences_Initialize();
+
+  /// 2. 所有request的初始化都在这里进行, 这样进入App可以直接用
+  /// (1) Network 初始化
+  Network net = Network();
+  bool isNetworkInitSucceed = await net.init();
+  print("Network初始化: $isNetworkInitSucceed");
+  print("Network的servers: ${net.servers}");
+
+  await Requests_Initializator();
+
+  print("UserID = ${await LocalStorageUtils.getUserID_Local()}");
+}
+
+
+
+/// 除了Network的其它所有Request初始化
+Future<void> Requests_Initializator() async {
+  /// (2) UserModel 初始化
+  UserRequest userRequest = UserRequest();
+  bool isUserInitSucceed = await userRequest.init();
+  print("UserRequest初始化: $isUserInitSucceed");
+  print("UserRequest的URL: " + UserRequest.url);
+
+  /// (3) MyBookRequest 初始化
+  MyBookRequest myBookRequest = MyBookRequest();
+  bool isMyBookInitSucceed = await myBookRequest.init();
+  print("MyBookRequest初始化: $isMyBookInitSucceed");
+  print("MyBookRequest的URL: " + MyBookRequest.url);
+
+  /// (4) ShopRequest 初始化
+  ShopRequest shopRequest = ShopRequest();
+  bool isShopInitSucceed = await shopRequest.init();
+  print("ShopRequest初始化: $isShopInitSucceed");
+  print("ShopRequest的URL: " + ShopRequest.url);
 }
 
 /* 个人图书对象示例

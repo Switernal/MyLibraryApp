@@ -85,7 +85,7 @@ class SearchMyBookPageState extends State<SearchMyBookPage> {
             animationDurationInMilli: 250,
             this_toggle: 1,
             searchAction: (inputText) {
-              Utils.showToast("查找中...", context, mode: ToastMode.Loading);
+              Utils.showToast("查找中...", context, mode: ToastMode.Loading, duration: 5);
               setState(() {
                 searchTextController.text = inputText;
               });

@@ -183,7 +183,7 @@ class BookListDetailCellState extends State<BookListDetailCell> {
                 title: "确定取消收藏《${widget.book.bookName}》吗",
                 content: "取消收藏后《${widget.book.bookName}》将从您的藏书中移除",
                 Action1: () async {
-                  Utils.showToast("更新中...", context);
+                  Utils.showToast("更新中...", context, mode: ToastMode.Loading, duration: 5);
 
                   var request = MyBookRequest();
                   await request.init();

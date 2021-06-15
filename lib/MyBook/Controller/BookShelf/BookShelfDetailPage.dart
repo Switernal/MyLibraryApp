@@ -39,6 +39,20 @@ class BookShelfDetailPageState extends State<BookShelfDetailPage> {
     }
   }
 
+  // 刷新书架中的书
+  Future<void> refreshBooks() async {
+    var request = MyBookRequest();
+    await request.init();
+    // print(widget.shelfName);
+    if (widget.shelf.shelfID == -1) {
+      books = await request.getAllBooks();
+    } else {
+      books = await request.getBooksFromShelf(shelfName: widget.shelf.shelfName);
+    }
+    setState(() {});
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,19 +63,22 @@ class BookShelfDetailPageState extends State<BookShelfDetailPage> {
       body: FutureBuilder(
         future: getBooks_Network(),
         builder: (context, snapshot) {
-          return ListView.builder(
-            padding: EdgeInsets.only(top: 5),
-            itemCount: books.length,
-            itemBuilder: (BuildContext context, int index){
-              return BookListDetailCell(
-                book: books[index],
-                deleteRefreshAction: () {
-                  setState(() {
-                    books.removeAt(index);
-                  });
-                },
-              );
-            },
+          return RefreshIndicator(
+            onRefresh: refreshBooks,
+            child: ListView.builder(
+              padding: EdgeInsets.only(top: 5),
+              itemCount: books.length,
+              itemBuilder: (BuildContext context, int index){
+                return BookListDetailCell(
+                  book: books[index],
+                  deleteRefreshAction: () {
+                    setState(() {
+                      books.removeAt(index);
+                    });
+                  },
+                );
+              },
+            )
           );
         },
       ),

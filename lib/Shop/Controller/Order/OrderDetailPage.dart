@@ -56,15 +56,19 @@ class OrderDetailPageState extends State<OrderDetailPage> {
 
   /// 获取卖家昵称
   String sellerName = "";
+  /// 获取买家昵称
+  String buyerName = "";
 
   ///定义异步寄存器, 用于FutureBuilder
   AsyncMemoizer _memoization = AsyncMemoizer<dynamic>();
 
   /// 获取用户信息的延迟加载
   Future<void> getUserInfo() async {
-      var user = await UserRequest().getUserByID(widget.order.book.userID);
-      sellerName = user.userName;
-      widget.order.book.owner = user;
+      var seller = await UserRequest().getUserByID(widget.order.book.userID);
+      var buyer = await UserRequest().getUserByID(widget.order.userID);
+      sellerName = seller.userName;
+      buyerName = buyer.userName;
+      widget.order.book.owner = seller;
   }
 
 
@@ -309,15 +313,15 @@ class OrderDetailPageState extends State<OrderDetailPage> {
               Text("买家用户名：" , style: TextStyle(color: Colors.black54, fontSize: 12),),
               Padding(padding: EdgeInsets.all(4)),
                */
-                Text("卖家昵称：" + sellerName, style: TextStyle(color: Colors.black54, fontSize: 12),),
+                Text("卖家昵称：" + this.sellerName, style: TextStyle(color: Colors.black54, fontSize: 12),),
                 Padding(padding: EdgeInsets.all(4)),
-                /*
-                Text("买家名：" + order., style: TextStyle(color: Colors.black54, fontSize: 12),),
+
+                Text("买家昵称：" + this.buyerName, style: TextStyle(color: Colors.black54, fontSize: 12),),
                 Padding(padding: EdgeInsets.all(4)),
-                 */
+
                 Text("订单编号：" + widget.order.orderID, style: TextStyle(color: Colors.black54, fontSize: 12),),
                 Padding(padding: EdgeInsets.all(4)),
-                Text("交易时间：" + formatDate(widget.order.createTime, ['yyyy','-','mm','-','dd',' ','HH',':','mm',':','ss']), style: TextStyle(color: Colors.black54, fontSize: 12),),
+                Text("交易时间：" + formatDate(widget.order.createTime, ['yyyy','-','mm','-','dd',' ','HH',':','nn',':','ss']), style: TextStyle(color: Colors.black54, fontSize: 12),),
                 Padding(padding: EdgeInsets.all(4)),
               ],
             ),
@@ -583,7 +587,7 @@ class OrderDetailPageState extends State<OrderDetailPage> {
                       title: "确定取消订单吗？",
                       content: "卖家尚未发货, 您可以随时取消订单",
                       Action1: () async {
-                        Utils.showToast("取消订单中...", context, mode: ToastMode.Loading);
+                        Utils.showToast("取消订单中...", context, mode: ToastMode.Loading, duration: 5);
                         Navigator.pop(context);
                         result = await ShopRequest().cancelOrder(order: widget.order);
 

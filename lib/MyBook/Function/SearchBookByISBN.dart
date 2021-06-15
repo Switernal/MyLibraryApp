@@ -24,6 +24,7 @@ class SearchBookByISBN {
     MyBookModel book = await SearchBookByISBN_Bamboo.toMyBook(ISBN, context);
     // 如果生成了书籍
     if (book != null) {
+      Utils.showToast("查找成功", context, mode: ToastMode.Success);
       Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
           MyBookDetailPage(
             isCollected: false,
@@ -75,7 +76,7 @@ class SearchBookByISBN {
 
     // 查到了
     if (book != null) {
-      print("should push");
+      Utils.showToast("查找成功", context, mode: ToastMode.Success);
       Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
           PublishBookPage(bookToPublish: book, publishMode: PublishMode.add)
       ));

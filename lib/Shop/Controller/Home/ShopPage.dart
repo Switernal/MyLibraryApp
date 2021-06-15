@@ -84,7 +84,7 @@ class ShopPageState extends State<ShopPage> with TickerProviderStateMixin, Autom
               autoFocus: false,
               animationDurationInMilli: 250,
               searchAction: (value) {
-                Utils.showToast("查找中...", context, mode: ToastMode.Loading);
+                Utils.showToast("查找中...", context, mode: ToastMode.Loading, duration: 5);
                 searchTextController.clear();
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                     SearchShopBooksPage(searchText: value,)

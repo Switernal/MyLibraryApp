@@ -25,21 +25,21 @@ MyBookModel this_Book = MyBookModel(
   bookName: "云雀叫了一整天",
   ISBN: "9787569377941",
 
-  bookShelf: "书房",
+  bookShelf: "我的书架",
   notes: "精装版",
   lender: "",
   isLentOut: false,
 
   buyFrom: "京东",
-  buyDate: "2020-05-21",
+  buyDate: "2020-06-21",
   price: 30.00,
 
   author: "木心",
-  translator: "陈丹青",
+  translator: "",
   press: "广西师范大学出版社",
   publicationDate: "2016-04-01",
 
-  totalPages: 0,
+  totalPages: 245,
   readProgress: 0,
 
   contentIntroduction: "《云雀叫了一整天》是由广西师范大学出版社出版的图书，作者是木心。该书由第一辑（诗歌）与第二辑（短句）组成，收入了《火车中的情诗》《女优的肖像》《伏尔加》等一百余首诗篇，逾百行木心式的精彩箴言。",
@@ -271,7 +271,7 @@ class MyBookDetailPageState extends State<MyBookDetailPage> {
                                 // LocalStorage.saveSearchedBook_test(newBook: widget.thisBook);
 
                                 // 新增图书操作
-                                Utils.showToast("更新中...", context, mode: ToastMode.Loading);
+                                Utils.showToast("更新中...", context, mode: ToastMode.Loading, duration: 5);
                                 var result = await request.addBook(newBook: widget.thisBook);
                                 switch (result) {
                                   case 1:
@@ -302,20 +302,24 @@ class MyBookDetailPageState extends State<MyBookDetailPage> {
                                     );
 
                                      */
-                                    Utils.showToast("更新中...", context, mode: ToastMode.Loading);
+                                    Utils.showToast("更新中...", context, mode: ToastMode.Loading, duration: 5);
                                     // 删除图书操作
                                     var result = await request.deleteBook(ISBN: widget.thisBook.ISBN);
+                                    print("result = $result");
                                     switch (result) {
                                       case 1:
+                                        Navigator.pop(context);
                                         Utils.showToast("取消收藏成功", context, mode: ToastMode.Success);
                                         break;
                                       case 0:
+                                        Navigator.pop(context);
                                         Utils.showToast("取消收藏失败", context, mode: ToastMode.Error);
                                         break;
                                       default:
+                                        Navigator.pop(context);
                                         Utils.showToast("发生未知错误", context, mode: ToastMode.Error);
                                     }
-                                    Navigator.pop(context);
+
                                     // 更新按钮状态
                                     changeCollectionButtonStatus();
                                   },

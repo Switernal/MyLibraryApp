@@ -42,16 +42,6 @@ class BookShelfManagePageState extends State<BookShelfManagePage> {
   /// 网络请求对象
   var request = MyBookRequest();
 
-  /// 获取书架 (local)
-  @deprecated
-  Future<void> _getShelfs_Local() async {
-    await LocalStorageUtils.getShelfs_test().then((result) {
-      result.forEach((shelf) {
-        shelfs[shelf.shelfName] = shelf;
-      });
-
-    });
-  }
 
   /// 获取书架 (Network)
   Future<void> _getShelfs_Network() async {
@@ -69,6 +59,25 @@ class BookShelfManagePageState extends State<BookShelfManagePage> {
         shelfs[shelf.shelfName] = shelf;
       });
     });
+  }
+
+  /// 刷新书架 (Network)
+  Future<void> _refreshShelfs() async {
+    print("get shelfs");
+    // 添加默认书架
+    shelfs["所有藏书"] = BookShelfModel(shelfName: "所有藏书", shelfID: -1, books: await request.getAllBooks());
+    // 初始化request
+    await request.init();
+    // 获取书架中图书数量
+    var shelfCounts = await request.getBooksCountInShelf();
+    // 获取书架
+    await request.getShelfs().then((result) {
+      result.forEach((shelf) {
+        shelf.counts = shelfCounts[shelf.shelfName];
+        shelfs[shelf.shelfName] = shelf;
+      });
+    });
+    setState(() {});
   }
 
   /// 没有书架时的body
@@ -93,43 +102,45 @@ class BookShelfManagePageState extends State<BookShelfManagePage> {
 
   Widget BodyArea_NotEmpty() {
     // print("Exist Shelfs");
-    return ListView.builder(
-      padding: EdgeInsets.only(top: 8),
-      itemCount: shelfs.length,
-      itemBuilder: (context, index) {
-        String thisShelfName = shelfs.keys.toList()[index];
+    return RefreshIndicator(
+      onRefresh: _refreshShelfs,
+      child: ListView.builder(
+        padding: EdgeInsets.only(top: 8),
+        itemCount: shelfs.length,
+        itemBuilder: (context, index) {
+          String thisShelfName = shelfs.keys.toList()[index];
 
-        return Row(
-          children: [
-            Expanded(
-              child: BookShelfManageCell(
-                shelf: shelfs[thisShelfName],
-                // 传入删除操作
-                deleteAction: (@required String shelfName) {
-                  Utils.ShowAlertDialog(context: context,
-                    title: "确定删除书架[${shelfName}]吗?",
-                    content: "别担心，删除书架不会删除书架中的藏书，删除书架后您仍可以在[所有藏书]中查看您收藏在该书架中的图书",
-                    Action1: () async {
+          return Row(
+            children: [
+              Expanded(
+                child: BookShelfManageCell(
+                  shelf: shelfs[thisShelfName],
+                  // 传入删除操作
+                  deleteAction: (@required String shelfName) {
+                    Utils.ShowAlertDialog(context: context,
+                      title: "确定删除书架[${shelfName}]吗?",
+                      content: "别担心，删除书架不会删除书架中的藏书，删除书架后您仍可以在[所有藏书]中查看您收藏在该书架中的图书",
+                      Action1: () async {
 
-                    // 删除存储 (Network)
-                      var result = await request.deleteShelf(shelfName: shelfName);
-                      switch (result) {
-                        case 1:
-                          Utils.showToast("删除成功", context, mode: ToastMode.Success);
-                          break;
-                        case 0:
-                          Utils.showToast("删除失败", context, mode: ToastMode.Error);
-                          break;
-                        default:
-                          Utils.showToast("发生未知错误", context, mode: ToastMode.Error);
-                      }
+                        // 删除存储 (Network)
+                        var result = await request.deleteShelf(shelfName: shelfName);
+                        switch (result) {
+                          case 1:
+                            Utils.showToast("删除成功", context, mode: ToastMode.Success);
+                            break;
+                          case 0:
+                            Utils.showToast("删除失败", context, mode: ToastMode.Error);
+                            break;
+                          default:
+                            Utils.showToast("发生未知错误", context, mode: ToastMode.Error);
+                        }
 
-                      setState(() {
-                        shelfs.remove(shelfName);
-                      });
-                      Navigator.pop(context);
-                      // 删除存储 (Local)
-                      /*
+                        setState(() {
+                          shelfs.remove(shelfName);
+                        });
+                        Navigator.pop(context);
+                        // 删除存储 (Local)
+                        /*
                       LocalStorage.removeBookShelf(thisShelfName).then((result) {
                         if (result == false) {
                           Utils.showToast("默认书架不能删除喔", context);
@@ -143,48 +154,49 @@ class BookShelfManagePageState extends State<BookShelfManagePage> {
                       });
 
                        */
-                    },
-                    Action2: () => Navigator.pop(context),
-                  );
+                      },
+                      Action2: () => Navigator.pop(context),
+                    );
 
-                },
-                // 传入修改操作
-                editAction: (@required String newName) async {
-                  if (!shelfs.containsKey(newName)) {
+                  },
+                  // 传入修改操作
+                  editAction: (@required String newName) async {
+                    if (!shelfs.containsKey(newName)) {
 
-                    var oldName = thisShelfName;
-                    Utils.showToast("更新中...", context, mode: ToastMode.Loading);
+                      var oldName = thisShelfName;
+                      Utils.showToast("更新中...", context, mode: ToastMode.Loading, duration: 5);
 
-                    // 网络更新书架请求
-                    var result = await request.updateShelf(oldShelfName: oldName, newShelfName: newName);
-                    switch (result) {
-                      case 1:
-                        Utils.showToast("修改成功", context, mode: ToastMode.Success);
-                        break;
-                      case 0:
-                        Utils.showToast("修改失败", context, mode: ToastMode.Error);
-                        break;
-                      default:
-                        Utils.showToast("发生未知错误", context, mode: ToastMode.Error);
+                      // 网络更新书架请求
+                      var result = await request.updateShelf(oldShelfName: oldName, newShelfName: newName);
+                      switch (result) {
+                        case 1:
+                          Utils.showToast("修改成功", context, mode: ToastMode.Success);
+                          break;
+                        case 0:
+                          Utils.showToast("修改失败", context, mode: ToastMode.Error);
+                          break;
+                        default:
+                          Utils.showToast("发生未知错误", context, mode: ToastMode.Error);
+                      }
+
+                      setState((){
+                        // 修改对象,本地显示用
+                        shelfs[newName] = shelfs[thisShelfName];
+                        shelfs.remove(oldName);
+                      });
+                      return null;
+
+                    } else {
+                      return "书柜名已存在";
                     }
-
-                    setState((){
-                      // 修改对象,本地显示用
-                      shelfs[newName] = shelfs[thisShelfName];
-                      shelfs.remove(oldName);
-                    });
-                    return null;
-
-                  } else {
-                    return "书柜名已存在";
-                  }
-                },
+                  },
+                ),
               ),
-            ),
 
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 

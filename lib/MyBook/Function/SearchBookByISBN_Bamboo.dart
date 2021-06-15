@@ -22,8 +22,8 @@ import 'package:my_library/Shop/Model/ShopBookModel.dart';
 
 /// ISBN查询接口(竹简)
 class SearchBookByISBN_Bamboo {
-  static String api = "http://api.feelyou.top/isbn/";
-  static String key = "?apikey=YourKey";
+  static String api = "";
+  static String key = "";
 
   /// 发送请求
   static Future<dynamic> sendRequest(String ISBN, BuildContext context) async {

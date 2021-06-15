@@ -137,7 +137,7 @@ class PublishBookPageState extends State<PublishBookPage> {
         );
 
         if (image != null) {
-          Utils.showToast("上传中...", context, mode: ToastMode.Loading);
+          Utils.showToast("上传中...", context, mode: ToastMode.Loading, duration: 5);
 
           var result = await UploadImage.upload(imagePath: image.path, ISBN: widget.bookToPublish.ISBN);
           if (result["code"] == 400) {

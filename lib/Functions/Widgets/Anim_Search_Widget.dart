@@ -145,6 +145,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                     child: AnimatedBuilder(
                       child: GestureDetector(
                         onTap: () {
+                          FocusScope.of(context).unfocus();
                           try {
                             ///trying to execute the onSuffixTap function
                             widget.onSuffixTap();
@@ -259,7 +260,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
                         toggle = 1;
                         setState(() {
                           ///if the autoFocus is true, the keyboard will pop open, automatically
-                          if (widget.autoFocus)
+                          // if (widget.autoFocus)
                             FocusScope.of(context).requestFocus(focusNode);
                         });
 
@@ -271,7 +272,7 @@ class _AnimSearchBarState extends State<AnimSearchBar>
 
                         ///if the autoFocus is true, the keyboard will close, automatically
                         setState(() {
-                          if (widget.autoFocus)
+                          // if (widget.autoFocus)
                             FocusScope.of(context).unfocus();
                         });
 
@@ -289,3 +290,4 @@ class _AnimSearchBarState extends State<AnimSearchBar>
     );
   }
 }
+
