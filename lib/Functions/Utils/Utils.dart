@@ -61,9 +61,9 @@ Map<ToastMode, dynamic> icons = {
 /// 全局工具类
 class Utils {
 
-  static final String Version = "0.1 (1A410)";
-  static final String UpdateDate = "2021.06.14";
-  static final String VersionNote = "0.1 Alpha 4 Build 10";
+  static final String Version = "0.1 (1B102)";
+  static final String UpdateDate = "2021.06.16";
+  static final String VersionNote = "0.1 Beta Build 2";
 
   /// ai_barcode 扫描条码[安卓]
   static Future<String> scanBarcode_Android({@required BuildContext context}) async {
@@ -92,7 +92,7 @@ class Utils {
     return barcodeScanRes;
   }
 
-  static void showToast(String text, BuildContext context, {ToastMode mode, int duration = 1}) {
+  static void showToast(String text, BuildContext context, {ToastMode mode, int duration = 3}) {
 
     FToast fToast = FToast()..init(context);
 
@@ -122,6 +122,7 @@ class Utils {
             style: TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
+              fontSize: 15
             ),
           )
         ],

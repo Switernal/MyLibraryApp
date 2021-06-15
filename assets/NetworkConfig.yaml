@@ -2,9 +2,7 @@ description: This is a configure file for network requests, includes sections be
 
 server:
   url:
-    - "http://mylibrary.switernal.cn:2333"
-    - "http://mylibrary.cn.utools.club"
-    - "http://librarytest.cn.utools.club"
+    - "Your host url"
 
   port:
     database_port: 3306

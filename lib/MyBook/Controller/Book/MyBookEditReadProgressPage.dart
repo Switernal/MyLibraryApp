@@ -89,7 +89,7 @@ class MyBookEditReadProgressPageState extends State<MyBookEditReadProgressPage> 
             return;
           }
 
-          Utils.showToast("更新中...", context, mode: ToastMode.Loading);
+          Utils.showToast("更新中...", context, mode: ToastMode.Loading, duration: 5);
 
           // 调用详情页的刷新方法
           // 如果输入为空,则默认输入值为0

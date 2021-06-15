@@ -121,28 +121,28 @@ class UserSignUpPageState extends State<UserSignUpPage> {
           errors = state.validate();
 
           if (errors.isNotEmpty) {
-            Utils.showToast(errors.first, context);
+            Utils.showToast(errors.first, context,  mode: ToastMode.Warning);
             return null;
           } else {
             if (values[3] != "3972") {
-              Utils.showToast("验证码不正确", context);
+              Utils.showToast("验证码不正确", context, mode: ToastMode.Error);
               return null;
             }
 
             if (widget.mode == UserMode.edit) {
               if (Utils.EncryptPassword(oldPassword) != widget.nowUser.password) {
-                Utils.showToast("旧密码不正确", context, mode: ToastMode.Warning);
+                Utils.showToast("旧密码不正确", context, mode: ToastMode.Error);
                 return;
               }
             }
             if (values[5] != values[6]) {
-              Utils.showToast("两次输入密码不一致", context);
+              Utils.showToast("两次输入密码不一致", context, mode: ToastMode.Error);
               return null;
             }
             if (values[1] != "" &&
                 !RegExp(r'^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$')
                     .hasMatch(values[1])) {
-              Utils.showToast("请输入正确的邮箱", context);
+              Utils.showToast("请输入正确的邮箱", context, mode: ToastMode.Warning);
               return null;
             }
           }
@@ -164,7 +164,7 @@ class UserSignUpPageState extends State<UserSignUpPage> {
 
           switch (widget.mode) {
             case UserMode.add:
-              Utils.showToast("注册中...", context, mode: ToastMode.Loading);
+              Utils.showToast("注册中...", context, mode: ToastMode.Loading, duration: 6);
 
               var request = UserRequest();
               await request.init();
@@ -186,7 +186,7 @@ class UserSignUpPageState extends State<UserSignUpPage> {
 
             case UserMode.edit:
               
-              Utils.showToast("修改中...", context, mode: ToastMode.Loading);
+              Utils.showToast("修改中...", context, mode: ToastMode.Loading, duration: 5);
 
               var request = UserRequest();
               await request.init();
@@ -270,9 +270,9 @@ class UserSignUpPageState extends State<UserSignUpPage> {
             seconds: 60,
             onPressed: () {
               if (isPhoneNumberValid) {
-                Utils.showToast("验证码已发送", context);
+                Utils.showToast("验证码已发送", context, mode: ToastMode.Success);
               } else {
-                Utils.showToast("手机号不正确", context);
+                Utils.showToast("手机号不正确", context, mode: ToastMode.Warning);
               }
             },
           );

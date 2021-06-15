@@ -313,7 +313,7 @@ class BookInfoFormPageState extends State<BookInfoFormPage> {
 
   PopupMenuButton<ChooseImage> selectPhotoMenu(BuildContext context) {
     return PopupMenuButton<ChooseImage>(
-      child: Text("上传封面", style: TextStyle(color: Colors.white),),
+      child: TextButton(child: Text("上传封面", style: TextStyle(color: Colors.white),),),
 
       //icon: Icon(Icons.upload_file),
       itemBuilder: (BuildContext context) => <PopupMenuEntry<ChooseImage>>[
@@ -362,7 +362,7 @@ class BookInfoFormPageState extends State<BookInfoFormPage> {
         );
 
         if (image != null) {
-          Utils.showToast("上传中...", context, mode: ToastMode.Loading);
+          Utils.showToast("上传中...", context, mode: ToastMode.Loading, duration: 10);
 
           var result = await UploadImage.upload(imagePath: image.path, ISBN: widget.book.ISBN);
           if (result["code"] == 400) {
@@ -504,26 +504,36 @@ class BookInfoFormPageState extends State<BookInfoFormPage> {
                 children: [
                   Text("封面图片"),
                   // 选择图片按钮
-                  selectPhotoMenu(context),
-                  // RaisedButton(
-                  //   padding: EdgeInsets.zero,
-                  //   // 一个弹出菜单
-                  //   child: selectPhotoMenu(context),
-                  //   color: Colors.blue,
-                  //   onPressed: (){},
-                  // ),
+                  //selectPhotoMenu(context),
+                  /*
+                  RaisedButton(
+                    padding: EdgeInsets.zero,
+                    // 一个弹出菜单
+
+                    onPressed: (){},
+                  ),
+
+                   */
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    height: 35,
+                    child: selectPhotoMenu(context),
+                    color: Colors.blue,
+                  ),
                 ],
               ),
             );
           } else {
             /// 如果有封面
             return Container(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("封面图片"),
                   // 选择图片按钮
+
+                  /*
                   RaisedButton(
                     // padding: EdgeInsets.zero,
                     // 一个弹出菜单
@@ -531,8 +541,20 @@ class BookInfoFormPageState extends State<BookInfoFormPage> {
                     color: Colors.blue,
                     onPressed: (){},
                   ),
+
+                   */
                   // 上传封面按钮
-                  RaisedButton(
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    height: 35,
+                    child: selectPhotoMenu(context),
+                    color: Colors.blue,
+                  ),
+
+                  // 删除封面按钮
+
+                  FlatButton(
                     // 一个弹出菜单
                     child: Text("删除封面", style: TextStyle(color: Colors.white),),
                     color: Colors.red,
@@ -542,9 +564,9 @@ class BookInfoFormPageState extends State<BookInfoFormPage> {
                       });
                     },
                   ),
-                  // 删除封面按钮
+
                   Container(
-                    height: 100,
+                    height: 120,
                     // width: 50,
                     padding: EdgeInsets.zero,
                     child:
@@ -552,7 +574,7 @@ class BookInfoFormPageState extends State<BookInfoFormPage> {
                         aspectRatio: 3.0 / 3.8, // 宽高比
                         child: ExtendedImage.network(
                           widget.book.coverURL,
-                          cache: true,
+                          cache: false,
                           fit: BoxFit.fitHeight,
                           enableLoadState: true,
                           loadStateChanged: (state) {

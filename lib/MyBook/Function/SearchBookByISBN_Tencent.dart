@@ -49,7 +49,7 @@ class SearchBookByISBN_Tencent {
   /// 发送请求
   Future<Map<String, dynamic>> sendRequest(String ISBN, BuildContext context) async {
 
-    Utils.showToast("正在查找图书...", context, mode: ToastMode.Loading);
+    Utils.showToast("正在查找图书...", context, mode: ToastMode.Loading, duration: 10);
     // get参数
     Map<String, dynamic> paras = {
       "isbn" : ISBN,

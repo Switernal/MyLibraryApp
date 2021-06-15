@@ -81,7 +81,7 @@ class SearchShopBooksPageState extends State<SearchShopBooksPage> {
             autoFocus: false,
             animationDurationInMilli: 250,
             searchAction: (value) {
-              Utils.showToast("查找中...", context, mode: ToastMode.Loading);
+              Utils.showToast("查找中...", context, mode: ToastMode.Loading, duration: 5);
               refreshData();
             },
             onSuffixTap: () {

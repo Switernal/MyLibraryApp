@@ -119,12 +119,23 @@ class MyLibraryHomePageState extends State<MyLibraryHomePage> with TickerProvide
     total = 0;
 
     shelfs = await MyBookRequest().getShelfs();
+    List<MyBookModel> totalBooks = await request.getAllBooks();
+
+    Map<int, BookShelfModel> shelfMap = {};
+
     // 依次获取藏书
     for (var shelf in shelfs) {
-      shelf.books = await request.getBooksFromShelf(shelfName: shelf.shelfName);
+      shelf.books = [];
+      shelfMap[shelf.shelfID] = shelf;
+      //shelf.books = [];//await request.getBooksFromShelf(shelfName: shelf.shelfName);
     }
 
-    List<MyBookModel> totalBooks = await request.getAllBooks();
+    for (var book in totalBooks) {
+      if (book.shelfID != 0) {
+        shelfMap[book.shelfID].books.add(book);
+      }
+    }
+
     total = totalBooks.length;
     this.tabs.add(Tab(child: Container(padding: EdgeInsets.symmetric(horizontal: 10), child: Text("所有藏书"), ),));
     this.shelfPages.add(BookShelfView(shelf: BookShelfModel(shelfName: "所有藏书", shelfID: -1, books: totalBooks),));
@@ -254,7 +265,7 @@ class MyLibraryHomePageState extends State<MyLibraryHomePage> with TickerProvide
                 autoFocus: false,
                 animationDurationInMilli: 250,
                 searchAction: (value) {
-                  Utils.showToast("查找中...", context, mode: ToastMode.Loading);
+                  Utils.showToast("查找中...", context, mode: ToastMode.Loading, duration: 5);
                   searchTextController.clear();
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchMyBookPage(searchText: value,)));
                 },

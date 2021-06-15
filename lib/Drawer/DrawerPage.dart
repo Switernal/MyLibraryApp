@@ -13,6 +13,7 @@ import 'package:my_library/User/Controller/UserHomePage.dart';
 import 'package:my_library/Functions/Utils/LocalStorageUtils.dart';
 import 'package:my_library/User/Controller/UserSignUpPage.dart';
 import 'package:my_library/User/Function/UserRequest.dart';
+import 'package:my_library/main.dart' as Main;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:my_library/Functions/Widgets/WebviewPage.dart';
@@ -132,14 +133,16 @@ class MainDrawerState extends State<MainDrawer> {
                   setState(() {
                     UserModel.setUserLogoutStatus();
                     refreshLoginStatus();
+                    // 退出登录清除缓存
+                    clearDiskCachedImages();
                     if (widget.refreshApp != null) {
                       widget.refreshApp();
                       Navigator.pop(context);
-
                     } else {
                       Navigator.pop(context);
                       Navigator.pop(context);
                     }
+                    Utils.showToast("退出登录成功", context, mode: ToastMode.Message);
                   });
                 }
               },
@@ -246,8 +249,8 @@ class MainDrawerState extends State<MainDrawer> {
 
 
             /// Debug模式下允许选择服务器
-            //kDebugMode ? Column(
-            Column(
+            kDebugMode ? Column(
+            //Column(
               children: [
                 ListTile(
                   title: Text('选择服务器'),
@@ -262,10 +265,12 @@ class MainDrawerState extends State<MainDrawer> {
                         allServerOptions.add(
                             SimpleDialogOption(
                               child: Text(serverURL),
-                              onPressed: () {
+                              onPressed: () async {
                                 setState(() {
                                   Network().currentServer = serverURL;
                                 });
+                                // 所有请求重新初始化
+                                await Main.Requests_Initializator();
 
                                 Utils.showToast("服务器切换成功", context, mode: ToastMode.Success);
                                 Navigator.pop(context);
@@ -290,7 +295,8 @@ class MainDrawerState extends State<MainDrawer> {
 
                 Divider(),
               ],
-            ),
+            //),
+            ) : Container(),
 
 
 
@@ -476,21 +482,22 @@ class MainDrawerState extends State<MainDrawer> {
 
                 ListTile(
                   title: Text('致谢'),
-                  subtitle: Text('感谢所有的贡献者',maxLines: 2,overflow: TextOverflow.ellipsis,),
+                  subtitle: Text('感谢所有的测试人员',maxLines: 2,overflow: TextOverflow.ellipsis,),
                   leading: Icon(Icons.people, color: Colors.blue, size: 30,),// CircleAvatar(child: Text("1")),
                   onTap: (){showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       // return object of type Dialog
                       return AlertDialog(
-                        title: Text('贡献人员名单'),
+                        title: Text('内部测试人员名单'),
                         content: Text(
                                 "江湖骗子\n" +
                                 "GJ\n" +
                                 "叉叉\n" +
                                 "和宋\n" +
                                 "sbw\n" +
-                                "三三\n"
+                                "三三\n" +
+                                "Fair"
                         ),
                         actions: <Widget>[
                           new FlatButton(

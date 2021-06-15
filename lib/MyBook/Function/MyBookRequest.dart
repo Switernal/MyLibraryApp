@@ -385,11 +385,12 @@ class MyBookRequest {
       "user_id" : UserID,
       "isbn" : ISBN,
     };
-    print("deleteBook");
-    // 发送请求
-    var response = await Dio().post(url + route, data: jsonData);
+    print("DeleteBook : $ISBN");
 
-    // print("delete book");
+    // 发送请求
+    var response = await Dio().get(url + route, queryParameters: jsonData);
+
+    print(response);
 
     // 返回状态码
     return response.data["status"];

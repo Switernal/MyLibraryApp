@@ -323,6 +323,21 @@ class ShopBookDetailPageState extends State<ShopBookDetailPage> {
                   ),
                 ),
               ),
+
+              // ISBN号
+              Padding(
+                padding: EdgeInsets.only(left: leftPadding, top: topPadding, bottom: bottomPadding),
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(text: "ISBN：", style: TextStyle(color: Colors.grey, letterSpacing: 1.6),),
+                      TextSpan(text: widget.book.ISBN, style: TextStyle(color: Colors.black)),
+                    ],
+                  ),
+                ),
+              ),
+
+
             ],
           )
         ],
