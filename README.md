@@ -1,8 +1,8 @@
 # 一千零一夜 | MyLibrary
 
-## 项目官网
+## 项目官网(之前网站服务器数据库被黑了暂时无法访问)
 
-[一千零一夜 | MyLibrary - 你的个人图书馆](https://mylibrary.switernal.com/)
+[一千零一夜 | MyLibrary - 你的个人图书馆](https://mylibrary.switernal.com/) 
 
 ## 版本
 
